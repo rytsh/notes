@@ -3,6 +3,9 @@
 We use goproxy in a corporate environment where access to the public internet is restricted.  
 pkg.go.dev locally need to be configured to use a proxy.
 
+> Gitlab has issue to finding the repo if inside a private group.
+> So always add the `.git` as module name extensions.
+
 ## Athens
 
 Check https://github.com/gomods/athens
@@ -19,7 +22,13 @@ Record configuration to goproxy folder (https://docs.gomods.io/configuration/dow
 cat <<EOF > data/goproxy/athens.hcl
 downloadURL = "https://proxy.golang.org"
 
+# redirect to not store modules
 mode = "sync"
+
+download *.mycompany.com/* {
+    mode = "sync"
+}
+
 EOF
 ```
 
